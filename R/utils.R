@@ -20,7 +20,10 @@ utils::globalVariables(c("channel"))
 
 # Internal functions -----------------------------------------------------------
 
-logit2 <- function(x) log2(x) - log2(1 - x)
+logit2 <- function(x, alpha = 1e-5) {
+  #Protect against values exactly 0 or 1 by adding some small alpha
+  log2((x + alpha) / (1 - x + alpha))
+}
 
 ilogit2 <- function(x) 2^x / (1 + 2^x)
 
